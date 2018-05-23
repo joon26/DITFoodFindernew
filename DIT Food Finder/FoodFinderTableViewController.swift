@@ -22,6 +22,7 @@ class FoodFinderTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        self.title = "DIT 배달통"
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
@@ -54,8 +55,32 @@ class FoodFinderTableViewController: UITableViewController {
 
         return cell
     }
-
-
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+        print(foodStoreNames[indexPath.row])
+        
+        let optionMenu = UIAlertController(title: nil, message: "뭘원하시나요?", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        let cellAction = UIAlertAction(title: "전화걸기", style: .default){(action: UIAlertAction) -> Void in
+        print("전화걸기 실행!!")
+        let alertMessage = UIAlertController(title: "현재 서비스 구축중!", message: "죄송합니다", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertMessage.addAction(okAction)
+            self.present(alertMessage, animated: true)
+        }
+            //check-in action
+            let checkinAction = UIAlertAction(title: "Check in", style : .default){
+                (action: UIAlertAction) -> Void in
+                let cell = tableView.cellForRow(at: indexPath)
+                cell?.accessoryType = .checkmark
+        
+    }
+            optionMenu.addAction(cancelAction)
+            optionMenu.addAction(cellAction)
+            optionMenu.addAction(checkinAction)
+            present(optionMenu, animated: true)
+    }
+  
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
