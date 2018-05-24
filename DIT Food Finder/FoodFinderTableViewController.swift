@@ -72,9 +72,21 @@ class FoodFinderTableViewController: UITableViewController {
             let checkinAction = UIAlertAction(title: "Check in", style : .default){
                 (action: UIAlertAction) -> Void in
                 let cell = tableView.cellForRow(at: indexPath)
-                cell?.accessoryType = .checkmark
+                if(cell?.accessoryType == .checkmark) {
+                    cell?.accessoryType = .none
+                }else {
+                    cell?.accessoryType = .checkmark
+                }
         
     }
+        let UnDoCheckinAction = UIAlertAction(title: "Check out", style : .default){(action: UIAlertAction)-> Void in
+            let cell = tableView.cellForRow(at: indexPath)
+            
+            cell?.accessoryType = .none
+            
+        }
+        
+            optionMenu.addAction(UnDoCheckinAction)
             optionMenu.addAction(cancelAction)
             optionMenu.addAction(cellAction)
             optionMenu.addAction(checkinAction)
